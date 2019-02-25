@@ -2,7 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/action_settings"
-            android:title="Настройки" />
+            android:id="@+id/choose_city"
+            android:title="Выбрать город" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/saved_city"
+            android:title="Сохраненные города" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/whether"
+            android:title="Погода в выбранном городе" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/author"
+            android:title="Об авторе" />
     </group>
 </menu>

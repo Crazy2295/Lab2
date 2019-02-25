@@ -14,7 +14,6 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     EditText iLogin;
-    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,26 +21,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         iLogin = (EditText) findViewById(R.id.editLogin);
-
-        mDrawerLayout = findViewById(R.id.my_drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        mDrawerLayout.closeDrawers();
-
-                        return true;
-                    }
-                });
     }
 
 
 
     public void onMyButtonClick(View view) {
-        Intent intent = new Intent(this, Main2Activity.class);
-        intent.putExtra("iLogin", iLogin.getText().toString());
+        Intent intent = new Intent(this, Main3Activity.class);
+        intent.putExtra("type", "2");
         startActivity(intent);
     }
 }
