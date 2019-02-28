@@ -3,79 +3,54 @@ package com.example.crazy.lab2;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 public class Main3Activity extends AppCompatActivity {
-    private DrawerLayout mDrawerLayout;
+    Fragment1 frag1 = new Fragment1();
+    Fragment2 frag2 = new Fragment2();
+    Fragment3 frag3 = new Fragment3();
+    Fragment4 frag4 = new Fragment4();
 
+    FragmentManager fm = getFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
-        Intent intent = getIntent();
-
-        String type = intent.getStringExtra("type");
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-        switch (type) {
-            case "0":
-                ft.replace(R.id.your_placeholder, new SecondFragment());
-                break;
-            case "1":
-                ft.replace(R.id.your_placeholder, new FirstFragment());
-                break;
-            case "2":
-                ft.replace(R.id.your_placeholder, new BlankFragment());
-                break;
-            case "3":
-                ft.replace(R.id.your_placeholder, new ThirdFragment());
-                break;
-            default:
-                ft.replace(R.id.your_placeholder, new BlankFragment());
-                break;
-
-        }
-
+        ft.replace(R.id.fragment_place, frag3);
         ft.commit();
 
-
-        mDrawerLayout = findViewById(R.id.my_drawer_layout);
+        final DrawerLayout mDrawerLayout = findViewById(R.id.my_drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
                         switch(menuItem.getItemId()) {
                             case R.id.choose_city:
-                                Intent intent = new Intent(Main3Activity.this, Main3Activity.class);
-                                intent.putExtra("type", "0");
-                                startActivity(intent);
+                                ft.replace(R.id.fragment_place, frag1);
                                 break;
                             case R.id.saved_city:
-                                Intent intent1 = new Intent(Main3Activity.this, Main3Activity.class);
-                                intent1.putExtra("type", "1");
-                                startActivity(intent1);
+                                ft.replace(R.id.fragment_place, frag2);
                                 break;
                             case R.id.whether:
-                                Intent intent2 = new Intent(Main3Activity.this, Main3Activity.class);
-                                intent2.putExtra("type", "2");
-                                startActivity(intent2);
+                                ft.replace(R.id.fragment_place, frag3);
                                 break;
                             case R.id.author:
-                                Intent intent3 = new Intent(Main3Activity.this, Main3Activity.class);
-                                intent3.putExtra("type", "3");
-                                startActivity(intent3);
+                                ft.replace(R.id.fragment_place, frag4);
                                 break;
                         }
+                        ft.addToBackStack(null);
+                        ft.commit();
+
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
 

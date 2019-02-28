@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onMyButtonClick(View view) {
         Intent intent = new Intent(this, Main3Activity.class);
-        intent.putExtra("type", "2");
+        intent.putExtra("type", "3");
         startActivity(intent);
     }
 }

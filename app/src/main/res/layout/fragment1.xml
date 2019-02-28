@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BlankFragment"
-    android:background="#800080" >
+    tools:context=".Fragment1"
+    android:background="#0000ff" >
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Whether" />
+        android:text="Выбрать город" />
 
 </FrameLayout>
+
