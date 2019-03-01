@@ -22,9 +22,11 @@ public class Main3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_place, frag3);
-        ft.commit();
+        if (savedInstanceState == null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_place, frag3);
+            ft.commit();
+        }
 
         final DrawerLayout mDrawerLayout = findViewById(R.id.my_drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
