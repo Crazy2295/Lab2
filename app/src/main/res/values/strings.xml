@@ -2,5 +2,10 @@
     <string name="app_name">Lab2</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="temperature">Температура: -2</string>
+    <string name="pressure">Давление: 745 мм рт. ст.</string>
+    <string name="wind">Ветер: 3 м/с</string>
+    <string name="appName">Погода</string>
+    <string name="appVersion">Версия приложения: 3</string>
+    <string name="authorName">Имя автора: Vadim</string>
 </resources>
