@@ -13,20 +13,17 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText iLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        iLogin = (EditText) findViewById(R.id.editLogin);
     }
 
 
 
     public void onMyButtonClick(View view) {
-        Intent intent = new Intent(this, Main4Activity.class);
+        Intent intent = new Intent(this, Main3Activity.class);
         startActivity(intent);
     }
 }

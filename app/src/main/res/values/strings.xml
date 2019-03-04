@@ -9,9 +9,32 @@
     <string name="appVersion">Версия приложения: 3</string>
     <string name="authorName">Имя автора: Vadim</string>
 
-    <string-array name="recycler_data">
-        <item>My string 1</item>
-        <item>My string 2</item>
-        <item>My string 3</item>
+    <string-array name="city_arr">
+        <item>Абакан</item>
+        <item>Азов</item>
+        <item>Александров</item>
+        <item>Алексин</item>
+        <item>Альметьевск</item>
+        <item>Анапа</item>
+        <item>Ангарск</item>
+        <item>Анжеро-Судженск</item>
+        <item>Апатиты</item>
+        <item>Арзамас</item>
+        <item>Армавир</item>
+        <item>Арсеньев</item>
+        <item>Артем</item>
+        <item>Архангельск</item>
+        <item>Асбест</item>
+        <item>Астрахань</item>
+        <item>Ачинск</item>
+        <item>Балаково</item>
+        <item>Балахна</item>
+        <item>Балашиха</item>
+        <item>Балашов</item>
+        <item>Барнаул</item>
+        <item>Батайск</item>
+        <item>Белгород</item>
+        <item>Белебей</item>
+        <item>Белово</item>
     </string-array>
 </resources>
