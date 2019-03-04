@@ -8,4 +8,10 @@
     <string name="appName">Погода</string>
     <string name="appVersion">Версия приложения: 3</string>
     <string name="authorName">Имя автора: Vadim</string>
+
+    <string-array name="recycler_data">
+        <item>My string 1</item>
+        <item>My string 2</item>
+        <item>My string 3</item>
+    </string-array>
 </resources>
