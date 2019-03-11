@@ -125,14 +125,6 @@ public class Fragment2 extends Fragment {
                                         }};
                                         mAdapter = new SecondAdapter(recyclerData);
                                         mRecyclerView.setAdapter(mAdapter);
-                                        
-
-//                                        myString[0] = textCity;
-//                                        List<String> recyclerData = Arrays.asList(myString);
-//                                        List<String> countries = new ArrayList();
-//                                        countries.add("Россия");        //используется для надписи и картиночки
-//                                        mAdapter = new MyRecyclerViewAdapter(recyclerData, countries);
-//                                        mRecyclerView.setAdapter(mAdapter);
 
                                     } catch (IOException e) {
 

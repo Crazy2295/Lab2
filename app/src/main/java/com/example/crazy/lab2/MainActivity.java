@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onMyButtonClick(View view) {
-        Intent intent = new Intent(this, Main3Activity.class);
+        Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
     }
 }
