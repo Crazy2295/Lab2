@@ -21,7 +21,7 @@ public class MyAsyncTask extends AsyncTask<String, Integer, String> {
         String responseStr = null;
         Log.i("MyAsyncTask", "InBackground");
 
-        String urlString = "https://doc-0k-08-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/ac0pg108o4hso2296hu1lnkcqu1qtbt9/1552291200000/06522568430508153457/*/1OXE-M6WP0-yMbvgy0JF35CuQzEsaSsAh?e=download";
+        String urlString = "https://raw.githubusercontent.com/Dmtittrriy/testjasonlab/master/Weather.json";
         URL url = null;
 
         try{
