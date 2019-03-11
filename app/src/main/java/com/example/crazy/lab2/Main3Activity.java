@@ -27,7 +27,6 @@ import java.util.Locale;
 
 public class Main3Activity extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient;
-    private String textAddress = "address";
 
     Fragment1 frag1 = new Fragment1();
     Fragment2 frag2 = new Fragment2();
@@ -78,56 +77,5 @@ public class Main3Activity extends AppCompatActivity {
                         return true;
                     }
                 });
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        if(ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if(!ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            }
-            else {
-                getLocation();
-            }
-        }
-        else {
-            getLocation();
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
-        mFusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new
-                        OnSuccessListener<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                if (location != null) {
-                                    Geocoder geocoder = new Geocoder(getBaseContext(),
-                                            Locale.getDefault());
-                                    try {
-                                        Address address =
-                                                geocoder.getFromLocation(location.getLatitude(),
-                                                        location.getLongitude(), 1).get(0);
-                                        textAddress = address.getLocality();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                else {
-                                    textAddress = "null";
-                                }
-                            }
-                        });
-    }
-
-
-
-
-
-    public String getData() {
-        return textAddress;
     }
 }
