@@ -1,11 +1,11 @@
-package com.example.crazy.lab2;
+package com.example.crazy.lab2.utils;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ForJSON {
+public class WhetherJSON {
     @SerializedName("AtmosphericPressure")
     @Expose
     public Integer atmosphericPressure;

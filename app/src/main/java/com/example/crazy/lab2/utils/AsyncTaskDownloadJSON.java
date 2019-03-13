@@ -1,7 +1,9 @@
-package com.example.crazy.lab2;
+package com.example.crazy.lab2.utils;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.crazy.lab2.interfaces.AsyncResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,16 +12,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MyAsyncTask extends AsyncTask<String, Integer, String> {
+public class AsyncTaskDownloadJSON extends AsyncTask<String, Integer, String> {
     public AsyncResponse delegate = null;
 
     protected void onPreExecute() {
-        Log.i("MyAsyncTask", "PreExecute");
+        Log.i("AsyncTaskDownloadJSON", "PreExecute");
     }
 
     protected String doInBackground(String... arg) {
         String responseStr = null;
-        Log.i("MyAsyncTask", "InBackground");
+        Log.i("AsyncTaskDownloadJSON", "InBackground");
 
         String urlString = "https://raw.githubusercontent.com/Dmtittrriy/testjasonlab/master/Weather.json";
         URL url = null;
@@ -49,7 +51,7 @@ public class MyAsyncTask extends AsyncTask<String, Integer, String> {
                     response.append(line);
                 }
                 responseStr = response.toString();
-                Log.i("MyAsyncTask", "Response " + response);
+                Log.i("AsyncTaskDownloadJSON", "Response " + response);
                 input.close();
             }
         } catch (IOException e) {
@@ -60,11 +62,11 @@ public class MyAsyncTask extends AsyncTask<String, Integer, String> {
     }
 
     protected void onProgressUpdate(Integer... values) {
-        Log.i("MyAsyncTask", "Progress is " + values[0]);
+        Log.i("AsyncTaskDownloadJSON", "Progress is " + values[0]);
     }
 
     protected void onPostExecute(String output) {
-        Log.i("MyAsyncTask", "Output string = " + output);
+        Log.i("AsyncTaskDownloadJSON", "Output string = " + output);
         delegate.processFinish(output);
     }
 }

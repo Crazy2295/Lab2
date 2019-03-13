@@ -17,7 +17,7 @@
     </group>
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/author"
+            android:id="@+id/about_author"
             android:title="Об авторе" />
     </group>
 </menu>

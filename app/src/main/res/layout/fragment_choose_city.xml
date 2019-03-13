@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment2" >
+    tools:context=".fragments.FragmentChooseCity" >
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/save_city"
+        android:id="@+id/cities_rec"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
 </FrameLayout>
+

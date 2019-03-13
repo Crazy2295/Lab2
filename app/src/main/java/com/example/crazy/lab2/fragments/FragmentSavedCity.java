@@ -1,4 +1,4 @@
-package com.example.crazy.lab2;
+package com.example.crazy.lab2.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -18,8 +18,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.example.crazy.lab2.R;
+import com.example.crazy.lab2.adapters.AdapterSavedCity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,12 +28,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Executor;
 
-public class Fragment2 extends Fragment {
+public class FragmentSavedCity extends Fragment {
     private FusedLocationProviderClient mFusedLocationClient;
 
     private RecyclerView mRecyclerView;
@@ -41,15 +40,14 @@ public class Fragment2 extends Fragment {
     private String textCity = "address";
 
     private Activity activity;
-    private Context context;
     private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment2, container, false);
+        view = inflater.inflate(R.layout.fragment_saved_city, container, false);
 
         activity = getActivity();
-        context = activity.getBaseContext();
+        Context context = activity.getBaseContext();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
 
@@ -66,6 +64,13 @@ public class Fragment2 extends Fragment {
         } else {
             getLocation();
         }
+
+        mRecyclerView = (RecyclerView)view.findViewById(R.id.save_city);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new AdapterSavedCity(new ArrayList<String>());
+        mRecyclerView.setAdapter(mAdapter);
         
         return view;
     }
@@ -105,33 +110,30 @@ public class Fragment2 extends Fragment {
                                                 address.getLocality());
 
                                         textCity = address.getLocality();
-                                        
-                                        mRecyclerView = view.findViewById(R.id.save_city);
-                                        mRecyclerView.setHasFixedSize(true);
-                                        mLayoutManager = new LinearLayoutManager(view.getContext());
-                                        mRecyclerView.setLayoutManager(mLayoutManager);
 
-                                        if (textCity == null) {
+                                        if (textCity == null)
                                             textCity = "Местоположение не найдено";
-                                        }
-
-                                        mRecyclerView = (RecyclerView)view.findViewById(R.id.save_city);
-                                        mRecyclerView.setHasFixedSize(true);
-                                        mLayoutManager = new LinearLayoutManager(getActivity());
-                                        mRecyclerView.setLayoutManager(mLayoutManager);
-
-                                        List<String> recyclerData = new ArrayList<String>() {{
-                                            add(textCity);
-                                        }};
-                                        mAdapter = new SecondAdapter(recyclerData);
-                                        mRecyclerView.setAdapter(mAdapter);
 
                                     } catch (IOException e) {
 
                                         Log.i("Location", "error!");
                                         e.printStackTrace();
                                     }
+                                } else {
+                                    textCity = "Нет данных";
+                                    Log.i("Location", "null");
                                 }
+
+                                mRecyclerView = (RecyclerView)view.findViewById(R.id.save_city);
+                                mRecyclerView.setHasFixedSize(true);
+                                mLayoutManager = new LinearLayoutManager(getActivity());
+                                mRecyclerView.setLayoutManager(mLayoutManager);
+
+                                List<String> recyclerData = new ArrayList<String>() {{
+                                    add(textCity);
+                                }};
+                                mAdapter = new AdapterSavedCity(recyclerData);
+                                mRecyclerView.setAdapter(mAdapter);
                             }
                         })
                 .addOnFailureListener(activity, new
