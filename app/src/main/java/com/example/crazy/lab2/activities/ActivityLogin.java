@@ -13,13 +13,18 @@ public class ActivityLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
     }
 
 
 
-    public void onMyButtonClick(View view) {
+    public void onBtnLoginClick(View view) {
         Intent intent = new Intent(this, ActivityMain.class);
+        startActivity(intent);
+    }
+
+    public void onBtnTestingClick(View view) {
+        Intent intent = new Intent(this, ActivityForTesting.class);
         startActivity(intent);
     }
 }
