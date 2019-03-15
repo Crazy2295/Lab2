@@ -26,8 +26,8 @@ public class AdapterChooseCity extends RecyclerView.Adapter<AdapterChooseCity.My
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.i("Click", "on item click #" + getPosition());
-                    delegate.itemResponse(getPosition());
+                    Log.i("Click", "on item click #" + getAdapterPosition());
+                    delegate.itemResponse(getAdapterPosition());
                 }
             });
         }

@@ -22,9 +22,4 @@ public class ActivityLogin extends AppCompatActivity {
         Intent intent = new Intent(this, ActivityMain.class);
         startActivity(intent);
     }
-
-    public void onBtnTestingClick(View view) {
-        Intent intent = new Intent(this, ActivityForTesting.class);
-        startActivity(intent);
-    }
 }

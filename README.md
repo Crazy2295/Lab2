@@ -1,20 +1,6 @@
 # Lab2
 
-Pre-lab code is usually found in the files labeled ForTesting in the name.  
-Use the button on login screen called "Testing" to go to ActivityForTesting.
-
-## Pre-lab 6 code uploaded
-
-Code located in the:
-
-- /activities/ActivityForTesting.java
-- /fragments/FragmentForTesting.java
-- /interfaces/AsyncForTesting.java
-- /utils/AsyncTaskForTesting.java
-- /utils/JSONForTesting.java
-- activity_for_testing.xml
-- fragment_for_testing.xml
-
+Pre-lab code is usually found in the files labeled ForTesting in the name.
 
 # Plugins
 

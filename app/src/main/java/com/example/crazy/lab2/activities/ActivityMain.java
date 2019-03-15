@@ -19,27 +19,26 @@ public class ActivityMain extends AppCompatActivity {
     FragmentWhether frag3 = new FragmentWhether();
     FragmentAboutAuthor frag4 = new FragmentAboutAuthor();
 
+    NavigationView navigationView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
-//            FragmentTransaction _fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//            _fragmentTransaction.replace(R.id.fragment_place, frag3);
-//            _fragmentTransaction.commit();
+        if (savedInstanceState == null)
             clickToCity("Таганрог");
-        }
+
 
         final DrawerLayout mDrawerLayout = findViewById(R.id.my_drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         FragmentTransaction _fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-                        switch(menuItem.getItemId()) {
+                        switch (menuItem.getItemId()) {
                             case R.id.choose_city:
                                 _fragmentTransaction.replace(R.id.fragment_place, frag1);
                                 break;
@@ -64,7 +63,7 @@ public class ActivityMain extends AppCompatActivity {
                 });
     }
 
-    public void clickToCity (String city) {
+    public void clickToCity(String city) {
         Bundle bundle = new Bundle();
         bundle.putString("city", city);
         frag3.setArguments(bundle);
@@ -73,5 +72,7 @@ public class ActivityMain extends AppCompatActivity {
         _fragmentTransaction.replace(R.id.fragment_place, frag3);
         _fragmentTransaction.addToBackStack(null);
         _fragmentTransaction.commit();
+
+        navigationView.getMenu().getItem(2).setChecked(true);
     }
 }

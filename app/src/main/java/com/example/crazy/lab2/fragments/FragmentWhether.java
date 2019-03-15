@@ -21,11 +21,12 @@ public class FragmentWhether extends Fragment implements AsyncResponse {
 
     String city = "Таганрог";
 
-    TextView textView;
-    TextView textView2;
-    TextView textView3;
-    TextView textView4;
-    TextView textView5;
+    TextView cityNameView;
+    TextView pressureView;
+    TextView temperatureView;
+    TextView whetherCondView;
+    TextView weekdayView;
+    TextView windView;
 
 
     @Override
@@ -33,11 +34,12 @@ public class FragmentWhether extends Fragment implements AsyncResponse {
         View view = inflater.inflate(R.layout.fragment_whether, container, false);
 
 
-        textView = view.findViewById(R.id.textView);
-        textView2 = view.findViewById(R.id.textView2);
-        textView3 = view.findViewById(R.id.textView3);
-        textView4 = view.findViewById(R.id.textView4);
-        textView5 = view.findViewById(R.id.textView5);
+        cityNameView = view.findViewById(R.id.cityNameView);
+        pressureView = view.findViewById(R.id.pressureView);
+        temperatureView = view.findViewById(R.id.temperatureView);
+        whetherCondView = view.findViewById(R.id.whetherCondView);
+        weekdayView = view.findViewById(R.id.weekdayView);
+        windView = view.findViewById(R.id.windView);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
@@ -61,13 +63,14 @@ public class FragmentWhether extends Fragment implements AsyncResponse {
 
         for (int i = 0; i < output.size(); i++) {
             WhetherJSON elem = output.get(i);
+
             if (elem.city.equals(city)) {
-//                Log.i("ProcFin", String.valueOf(elem.atmosphericPressure));
-                textView.setText(elem.atmosphericPressure.toString());
-                textView2.setText(elem.temperature.toString());
-                textView3.setText(elem.weatherCondition.toString());
-                textView4.setText(elem.weekday.toString());
-                textView5.setText(elem.wind.toString());
+                cityNameView.setText(elem.city);
+                pressureView.setText(elem.atmosphericPressure.toString());
+                temperatureView.setText(elem.temperature.toString());
+                whetherCondView.setText(elem.weatherCondition);
+                weekdayView.setText(elem.weekday);
+                windView.setText(elem.wind.toString());
             }
         }
     }

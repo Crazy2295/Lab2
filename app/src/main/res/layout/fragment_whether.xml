@@ -9,38 +9,44 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/whetherImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitStart"
         android:src="@drawable/rain" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/temperature" />
-
-    <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/cityNameView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/pressure" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/pressureView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pressure" />
+
+    <TextView
+        android:id="@+id/temperatureView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/temperature" />
+
+    <TextView
+        android:id="@+id/whetherCondView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/wind" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/weekdayView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/wind" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/windView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/wind" />
