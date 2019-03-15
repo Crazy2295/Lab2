@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.crazy.lab2.interfaces.AsyncResponse;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,19 +13,21 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AsyncTaskDownloadJSON extends AsyncTask<String, Integer, String> {
+public class AsyncTaskDownloadJSON extends AsyncTask<String, Integer, List<WhetherJSON>> {
     public AsyncResponse delegate = null;
 
     protected void onPreExecute() {
         Log.i("AsyncTaskDownloadJSON", "PreExecute");
     }
 
-    protected String doInBackground(String... arg) {
-        String responseStr = null;
+    protected List<WhetherJSON> doInBackground(String... arg) {
+        List<WhetherJSON> outputList = new ArrayList<>();
         Log.i("AsyncTaskDownloadJSON", "InBackground");
 
-        String urlString = "https://raw.githubusercontent.com/Lpirskaya/JsonLab/master/Weather.json";
+        String urlString = "https://raw.githubusercontent.com/Lpirskaya/JsonLab/master/Weather1.json";
         URL url = null;
 
         try{
@@ -50,22 +54,27 @@ public class AsyncTaskDownloadJSON extends AsyncTask<String, Integer, String> {
                 {
                     response.append(line);
                 }
-                responseStr = response.toString();
-                Log.i("AsyncTaskDownloadJSON", "Response " + response);
                 input.close();
+                Log.i("AsyncTaskDownloadJSON", "Response " + response);
+
+                Gson gson = new Gson();
+                outputList = gson.fromJson(response.toString(),
+                        new TypeToken<List<WhetherJSON>>(){}.getType());
+
+                return outputList;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return responseStr;
+        return outputList;
     }
 
     protected void onProgressUpdate(Integer... values) {
         Log.i("AsyncTaskDownloadJSON", "Progress is " + values[0]);
     }
 
-    protected void onPostExecute(String output) {
+    protected void onPostExecute(List<WhetherJSON> output) {
         Log.i("AsyncTaskDownloadJSON", "Output string = " + output);
         delegate.processFinish(output);
     }

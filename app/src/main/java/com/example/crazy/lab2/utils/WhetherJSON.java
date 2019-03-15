@@ -6,6 +6,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class WhetherJSON {
+    @SerializedName("City")
+    @Expose
+    public String city;
+
     @SerializedName("AtmosphericPressure")
     @Expose
     public Integer atmosphericPressure;

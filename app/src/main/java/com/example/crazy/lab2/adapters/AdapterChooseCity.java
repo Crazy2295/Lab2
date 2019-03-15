@@ -9,21 +9,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.crazy.lab2.R;
+import com.example.crazy.lab2.interfaces.CityClickResponse;
 
 import java.util.List;
 
 public class AdapterChooseCity extends RecyclerView.Adapter<AdapterChooseCity.MyViewHolder> {
     private List<String> mDataset;
+    public static CityClickResponse delegate = null;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
+
         public MyViewHolder(View v) {
             super(v);
             mTextView = v.findViewById(R.id.choose_city_text_view);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.i("Click", "on item click");
+                    Log.i("Click", "on item click #" + getPosition());
+                    delegate.itemResponse(getPosition());
                 }
             });
         }

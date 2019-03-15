@@ -25,9 +25,10 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            FragmentTransaction _fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            _fragmentTransaction.replace(R.id.fragment_place, frag3);
-            _fragmentTransaction.commit();
+//            FragmentTransaction _fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//            _fragmentTransaction.replace(R.id.fragment_place, frag3);
+//            _fragmentTransaction.commit();
+            clickToCity("Таганрог");
         }
 
         final DrawerLayout mDrawerLayout = findViewById(R.id.my_drawer_layout);
@@ -61,5 +62,16 @@ public class ActivityMain extends AppCompatActivity {
                         return true;
                     }
                 });
+    }
+
+    public void clickToCity (String city) {
+        Bundle bundle = new Bundle();
+        bundle.putString("city", city);
+        frag3.setArguments(bundle);
+
+        FragmentTransaction _fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        _fragmentTransaction.replace(R.id.fragment_place, frag3);
+        _fragmentTransaction.addToBackStack(null);
+        _fragmentTransaction.commit();
     }
 }
