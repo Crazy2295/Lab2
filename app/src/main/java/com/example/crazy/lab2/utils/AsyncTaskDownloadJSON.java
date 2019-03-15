@@ -23,7 +23,7 @@ public class AsyncTaskDownloadJSON extends AsyncTask<String, Integer, String> {
         String responseStr = null;
         Log.i("AsyncTaskDownloadJSON", "InBackground");
 
-        String urlString = "https://raw.githubusercontent.com/Dmtittrriy/testjasonlab/master/Weather.json";
+        String urlString = "https://raw.githubusercontent.com/Lpirskaya/JsonLab/master/Weather.json";
         URL url = null;
 
         try{
