@@ -1,6 +1,6 @@
 # Lab2
 
-Pre-lab code is usually found in the files labeled ForTesting in the name.
+Pre-lab code is usually found in the files labeled ForTesting in the name.  
 Use the button on login screen called "Testing" to go to ActivityForTesting.
 
 ## Pre-lab 6 code uploaded
