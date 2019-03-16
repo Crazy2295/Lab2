@@ -19,7 +19,6 @@ public class ActivityMain extends AppCompatActivity {
     FragmentWhether frag3 = new FragmentWhether();
     FragmentAboutAuthor frag4 = new FragmentAboutAuthor();
 
-    NavigationView navigationView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class ActivityMain extends AppCompatActivity {
 
 
         final DrawerLayout mDrawerLayout = findViewById(R.id.my_drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -73,6 +72,7 @@ public class ActivityMain extends AppCompatActivity {
         _fragmentTransaction.addToBackStack(null);
         _fragmentTransaction.commit();
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(2).setChecked(true);
     }
 }
