@@ -20,4 +20,9 @@
             android:id="@+id/about_author"
             android:title="Об авторе" />
     </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/for_testing"
+            android:title="Testing" />
+    </group>
 </menu>

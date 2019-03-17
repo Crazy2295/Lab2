@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.crazy.lab2.fragments.FragmentChooseCity;
+import com.example.crazy.lab2.fragments.FragmentForTesting;
 import com.example.crazy.lab2.fragments.FragmentSavedCity;
 import com.example.crazy.lab2.fragments.FragmentWhether;
 import com.example.crazy.lab2.fragments.FragmentAboutAuthor;
@@ -18,6 +19,7 @@ public class ActivityMain extends AppCompatActivity {
     FragmentSavedCity frag2 = new FragmentSavedCity();
     FragmentWhether frag3 = new FragmentWhether();
     FragmentAboutAuthor frag4 = new FragmentAboutAuthor();
+    FragmentForTesting fragmentForTesting = new FragmentForTesting();
 
 
     @Override
@@ -49,6 +51,9 @@ public class ActivityMain extends AppCompatActivity {
                                 break;
                             case R.id.about_author:
                                 _fragmentTransaction.replace(R.id.fragment_place, frag4);
+                                break;
+                            case R.id.for_testing:
+                                _fragmentTransaction.replace(R.id.fragment_place, fragmentForTesting);
                                 break;
                         }
                         _fragmentTransaction.addToBackStack(null);

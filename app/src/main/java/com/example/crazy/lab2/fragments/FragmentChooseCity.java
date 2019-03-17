@@ -1,6 +1,8 @@
 package com.example.crazy.lab2.fragments;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +19,7 @@ import com.example.crazy.lab2.R;
 import com.example.crazy.lab2.interfaces.AsyncResponse;
 import com.example.crazy.lab2.interfaces.CityClickResponse;
 import com.example.crazy.lab2.utils.AsyncTaskDownloadJSON;
+import com.example.crazy.lab2.utils.DBHelper;
 import com.example.crazy.lab2.utils.WhetherJSON;
 import com.google.gson.Gson;
 
@@ -26,6 +29,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class FragmentChooseCity extends Fragment implements AsyncResponse, CityClickResponse {
+    DBHelper dbHelper;
+
     private SwipeRefreshLayout swipeRefreshLayout;
     AsyncTaskDownloadJSON asyncTaskDownloadJSON = null;
 
@@ -39,11 +44,13 @@ public class FragmentChooseCity extends Fragment implements AsyncResponse, CityC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_choose_city, container, false);
 
+        dbHelper = new DBHelper(((ActivityMain)getActivity()).getBaseContext());
+
         swipeRefreshLayout = view.findViewById(R.id.test_swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                callAsyncTask();
+//                callAsyncTask();
             }
         });
 
@@ -71,8 +78,14 @@ public class FragmentChooseCity extends Fragment implements AsyncResponse, CityC
         List<String> outputList = new ArrayList<>();
         Collections.shuffle(output);
 
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
         for (int i = 0; i < output.size(); i++) {
             outputList.add(output.get(i).city);
+
+            ContentValues  cv = new ContentValues();
+            cv.put("name", output.get(i).city);
+            db.insert("Cities", null, cv);
         }
 
         recyclerData.clear();

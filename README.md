@@ -2,6 +2,12 @@
 
 Pre-lab code is usually found in the files labeled ForTesting in the name.
 
+## Pre-lab7 code uploaded
+
+* /utils/DBHelper
+* /fragments/FragmentChooseCity - insert to DB in func processFinish()
+* /fragments/FragmentForTesting - take data from DB and show
+
 # Plugins
 
 For better work I use:

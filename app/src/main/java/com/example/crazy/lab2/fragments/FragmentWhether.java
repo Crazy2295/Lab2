@@ -71,6 +71,7 @@ public class FragmentWhether extends Fragment implements AsyncResponse {
                 whetherCondView.setText(elem.weatherCondition);
                 weekdayView.setText(elem.weekday);
                 windView.setText(elem.wind.toString());
+                break;
             }
         }
     }
