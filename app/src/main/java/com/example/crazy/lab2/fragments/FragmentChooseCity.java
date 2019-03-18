@@ -2,6 +2,7 @@ package com.example.crazy.lab2.fragments;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,6 +46,18 @@ public class FragmentChooseCity extends Fragment implements AsyncResponse, CityC
         View view = inflater.inflate(R.layout.fragment_choose_city, container, false);
 
         dbHelper = new DBHelper(((ActivityMain)getActivity()).getBaseContext());
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        Cursor cursor = db.query("Cities", null, null,
+                null, null, null, "name");
+        cursor.moveToFirst();
+        int nameColIndex = cursor.getColumnIndex("name");
+        do {
+            recyclerData.add(cursor.getString(nameColIndex));
+        } while (cursor.moveToNext());
+        cursor.close();
+
+        Log.i("Choose", "rec = " + recyclerData);
 
         swipeRefreshLayout = view.findViewById(R.id.test_swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -54,7 +67,7 @@ public class FragmentChooseCity extends Fragment implements AsyncResponse, CityC
             }
         });
 
-        callAsyncTask();
+//        callAsyncTask();
 
         mRecyclerView = (RecyclerView)view.findViewById(R.id.cities_rec);
         mRecyclerView.setHasFixedSize(true);
@@ -78,14 +91,8 @@ public class FragmentChooseCity extends Fragment implements AsyncResponse, CityC
         List<String> outputList = new ArrayList<>();
         Collections.shuffle(output);
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
         for (int i = 0; i < output.size(); i++) {
             outputList.add(output.get(i).city);
-
-            ContentValues  cv = new ContentValues();
-            cv.put("name", output.get(i).city);
-            db.insert("Cities", null, cv);
         }
 
         recyclerData.clear();
