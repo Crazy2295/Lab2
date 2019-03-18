@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.crazy.lab2.R;
 import com.example.crazy.lab2.interfaces.AsyncResponse;
@@ -89,8 +90,11 @@ public class ActivityLogin extends AppCompatActivity implements AsyncResponse {
         for (int i = 0; i < usersList.size(); i++) {
             if(usersList.get(i).equals(_login) && passwordsList.get(i).equals(_password)) {
                 Intent intent = new Intent(this, ActivityMain.class);
+                intent.putExtra("login", _login);
                 startActivity(intent);
                 break;
+            } else if (i == (usersList.size() - 1)) {
+                Toast.makeText(this, "Wrong Login or Password.", Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.example.crazy.lab2.activities;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -30,6 +31,9 @@ public class ActivityMain extends AppCompatActivity {
         if (savedInstanceState == null)
             clickToCity("Таганрог");
 
+        Intent intent = getIntent();
+        String login = intent.getStringExtra("login");
+        getSupportActionBar().setTitle(login);
 
         final DrawerLayout mDrawerLayout = findViewById(R.id.my_drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
