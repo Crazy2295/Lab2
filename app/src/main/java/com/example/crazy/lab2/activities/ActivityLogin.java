@@ -2,8 +2,8 @@ package com.example.crazy.lab2.activities;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,17 +17,11 @@ import com.example.crazy.lab2.utils.AsyncTaskDownloadJSON;
 import com.example.crazy.lab2.utils.DBHelper;
 import com.example.crazy.lab2.utils.WhetherJSON;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ActivityLogin extends AppCompatActivity implements AsyncResponse {
     DBHelper dbHelper;
     AsyncTaskDownloadJSON asyncTaskDownloadJSON = null;
-
-
-    public List<String> usersList = new ArrayList<>();;
-    public List<String> passwordsList = new ArrayList<>();;
 
     TextView login;
     TextView password;
@@ -45,19 +39,6 @@ public class ActivityLogin extends AppCompatActivity implements AsyncResponse {
         password = findViewById(R.id.editPassword);
 
         dbHelper = new DBHelper(this.getBaseContext());
-
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        Cursor cursor = db.query("Users", new String[]{"login", "password"}, null,
-                null, null, null, "login");
-        cursor.moveToFirst();
-        int loginColIndex = cursor.getColumnIndex("login");
-        int passwordColIndex = cursor.getColumnIndex("password");
-        do {
-            usersList.add(cursor.getString(loginColIndex));
-            passwordsList.add(cursor.getString(passwordColIndex));
-        } while (cursor.moveToNext());
-        cursor.close();
     }
 
     @Override
@@ -79,23 +60,21 @@ public class ActivityLogin extends AppCompatActivity implements AsyncResponse {
     }
 
 
-
     public void onBtnLoginClick(View view) {
         String _login = login.getText().toString();
         String _password = password.getText().toString();
-        Log.i("Login", "login = " + _login + " password = " + _password);
-        Log.i("LoginSize", "usersList.size() = " + usersList.size() + " passwordsList = " + passwordsList.size());
 
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        for (int i = 0; i < usersList.size(); i++) {
-            if(usersList.get(i).equals(_login) && passwordsList.get(i).equals(_password)) {
-                Intent intent = new Intent(this, ActivityMain.class);
-                intent.putExtra("login", _login);
-                startActivity(intent);
-                break;
-            } else if (i == (usersList.size() - 1)) {
-                Toast.makeText(this, "Wrong Login or Password.", Toast.LENGTH_SHORT).show();
-            }
-        }
+        String query = "SELECT COUNT(*) FROM Users WHERE login ='" + _login +
+                "' AND password ='" + _password + "';";
+        SQLiteStatement sqlSt = db.compileStatement(query);
+
+        if (sqlSt.simpleQueryForLong() > 0) {
+            Intent intent = new Intent(this, ActivityMain.class);
+            intent.putExtra("login", _login);
+            startActivity(intent);
+        } else
+            Toast.makeText(this, "Wrong Login or Password.", Toast.LENGTH_SHORT).show();
     }
 }

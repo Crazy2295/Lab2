@@ -2,7 +2,6 @@ package com.example.crazy.lab2.adapters;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ public class AdapterChooseCity extends RecyclerView.Adapter<AdapterChooseCity.My
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.i("Click", "on item click #" + getAdapterPosition());
                     delegate.itemResponse(getAdapterPosition());
                 }
             });

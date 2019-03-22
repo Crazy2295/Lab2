@@ -20,12 +20,11 @@ public class AsyncTaskDownloadJSON extends AsyncTask<String, Integer, List<Wheth
     public AsyncResponse delegate = null;
 
     protected void onPreExecute() {
-        Log.i("AsyncTaskDownloadJSON", "PreExecute");
+//        Log.i("AsyncTaskDownloadJSON", "PreExecute");
     }
 
     protected List<WhetherJSON> doInBackground(String... arg) {
         List<WhetherJSON> outputList = new ArrayList<>();
-        Log.i("AsyncTaskDownloadJSON", "InBackground");
 
         String urlString = "https://raw.githubusercontent.com/Lpirskaya/JsonLab/master/Weather1.json";
         URL url = null;
@@ -55,7 +54,6 @@ public class AsyncTaskDownloadJSON extends AsyncTask<String, Integer, List<Wheth
                     response.append(line);
                 }
                 input.close();
-                Log.i("AsyncTaskDownloadJSON", "Response " + response);
 
                 Gson gson = new Gson();
                 outputList = gson.fromJson(response.toString(),
@@ -71,7 +69,7 @@ public class AsyncTaskDownloadJSON extends AsyncTask<String, Integer, List<Wheth
     }
 
     protected void onProgressUpdate(Integer... values) {
-        Log.i("AsyncTaskDownloadJSON", "Progress is " + values[0]);
+//        Log.i("AsyncTaskDownloadJSON", "Progress is " + values[0]);
     }
 
     protected void onPostExecute(List<WhetherJSON> output) {

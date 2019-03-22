@@ -1,7 +1,5 @@
 package com.example.crazy.lab2.fragments;
 
-import android.app.Activity;
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -17,23 +15,16 @@ import android.view.ViewGroup;
 import com.example.crazy.lab2.activities.ActivityMain;
 import com.example.crazy.lab2.adapters.AdapterChooseCity;
 import com.example.crazy.lab2.R;
-import com.example.crazy.lab2.interfaces.AsyncResponse;
 import com.example.crazy.lab2.interfaces.CityClickResponse;
-import com.example.crazy.lab2.utils.AsyncTaskDownloadJSON;
 import com.example.crazy.lab2.utils.DBHelper;
-import com.example.crazy.lab2.utils.WhetherJSON;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class FragmentChooseCity extends Fragment implements AsyncResponse, CityClickResponse {
+public class FragmentChooseCity extends Fragment implements CityClickResponse {
     DBHelper dbHelper;
 
     private SwipeRefreshLayout swipeRefreshLayout;
-    AsyncTaskDownloadJSON asyncTaskDownloadJSON = null;
 
     private List<String> recyclerData = new ArrayList<>();
 
@@ -46,28 +37,14 @@ public class FragmentChooseCity extends Fragment implements AsyncResponse, CityC
         View view = inflater.inflate(R.layout.fragment_choose_city, container, false);
 
         dbHelper = new DBHelper(((ActivityMain)getActivity()).getBaseContext());
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        Cursor cursor = db.query("Cities", null, null,
-                null, null, null, "name");
-        cursor.moveToFirst();
-        int nameColIndex = cursor.getColumnIndex("name");
-        do {
-            recyclerData.add(cursor.getString(nameColIndex));
-        } while (cursor.moveToNext());
-        cursor.close();
-
-        Log.i("Choose", "rec = " + recyclerData);
 
         swipeRefreshLayout = view.findViewById(R.id.test_swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                callAsyncTask();
+                getCities();
             }
         });
-
-//        callAsyncTask();
 
         mRecyclerView = (RecyclerView)view.findViewById(R.id.cities_rec);
         mRecyclerView.setHasFixedSize(true);
@@ -77,23 +54,25 @@ public class FragmentChooseCity extends Fragment implements AsyncResponse, CityC
         ((AdapterChooseCity) mAdapter).delegate = this;
         mRecyclerView.setAdapter(mAdapter);
 
+        swipeRefreshLayout.setRefreshing(true);
+        getCities();
+
         return view;
     }
 
-    void callAsyncTask () {
-        asyncTaskDownloadJSON = new AsyncTaskDownloadJSON();
-        asyncTaskDownloadJSON.delegate = this;
-        asyncTaskDownloadJSON.execute();
-    }
-
-    @Override
-    public void processFinish(List<WhetherJSON> output) {
+    void getCities () {
         List<String> outputList = new ArrayList<>();
-        Collections.shuffle(output);
 
-        for (int i = 0; i < output.size(); i++) {
-            outputList.add(output.get(i).city);
-        }
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query("Cities", new String[] {"name"}, null,
+                null, null, null, "name");
+
+        cursor.moveToFirst();
+        int nameColIndex = cursor.getColumnIndex("name");
+        do {
+            outputList.add(cursor.getString(nameColIndex));
+        } while (cursor.moveToNext());
+        cursor.close();
 
         recyclerData.clear();
         recyclerData.addAll(outputList);

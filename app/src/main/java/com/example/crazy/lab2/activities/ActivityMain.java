@@ -16,10 +16,10 @@ import com.example.crazy.lab2.fragments.FragmentAboutAuthor;
 import com.example.crazy.lab2.R;
 
 public class ActivityMain extends AppCompatActivity {
-    FragmentChooseCity frag1 = new FragmentChooseCity();
-    FragmentSavedCity frag2 = new FragmentSavedCity();
-    FragmentWhether frag3 = new FragmentWhether();
-    FragmentAboutAuthor frag4 = new FragmentAboutAuthor();
+    FragmentChooseCity fragChooseCity = new FragmentChooseCity();
+    FragmentSavedCity fragSavedCity = new FragmentSavedCity();
+    FragmentWhether fragWhether = new FragmentWhether();
+    FragmentAboutAuthor fragAboutAuthor = new FragmentAboutAuthor();
     FragmentForTesting fragmentForTesting = new FragmentForTesting();
 
 
@@ -45,16 +45,16 @@ public class ActivityMain extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.choose_city:
-                                _fragmentTransaction.replace(R.id.fragment_place, frag1);
+                                _fragmentTransaction.replace(R.id.fragment_place, fragChooseCity);
                                 break;
                             case R.id.saved_city:
-                                _fragmentTransaction.replace(R.id.fragment_place, frag2);
+                                _fragmentTransaction.replace(R.id.fragment_place, fragSavedCity);
                                 break;
                             case R.id.whether:
-                                _fragmentTransaction.replace(R.id.fragment_place, frag3);
+                                _fragmentTransaction.replace(R.id.fragment_place, fragWhether);
                                 break;
                             case R.id.about_author:
-                                _fragmentTransaction.replace(R.id.fragment_place, frag4);
+                                _fragmentTransaction.replace(R.id.fragment_place, fragAboutAuthor);
                                 break;
                             case R.id.for_testing:
                                 _fragmentTransaction.replace(R.id.fragment_place, fragmentForTesting);
@@ -74,10 +74,10 @@ public class ActivityMain extends AppCompatActivity {
     public void clickToCity(String city) {
         Bundle bundle = new Bundle();
         bundle.putString("city", city);
-        frag3.setArguments(bundle);
+        fragWhether.setArguments(bundle);
 
         FragmentTransaction _fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        _fragmentTransaction.replace(R.id.fragment_place, frag3);
+        _fragmentTransaction.replace(R.id.fragment_place, fragWhether);
         _fragmentTransaction.addToBackStack(null);
         _fragmentTransaction.commit();
 
