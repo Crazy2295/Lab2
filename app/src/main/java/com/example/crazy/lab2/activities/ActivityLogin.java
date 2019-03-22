@@ -3,6 +3,7 @@ package com.example.crazy.lab2.activities;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteStatement;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,7 +54,7 @@ public class ActivityLogin extends AppCompatActivity implements AsyncResponse {
             cv.put("weather_condition", output.get(i).weatherCondition);
             cv.put("weekday", output.get(i).weekday);
             cv.put("wind", output.get(i).wind);
-            db.insert("Cities", null, cv);
+            db.insert("cities", null, cv);
         }
 
         Log.i("processFinish", "Completed");
@@ -66,15 +67,20 @@ public class ActivityLogin extends AppCompatActivity implements AsyncResponse {
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String query = "SELECT COUNT(*) FROM Users WHERE login ='" + _login +
-                "' AND password ='" + _password + "';";
+        String query = "SELECT id FROM users WHERE login ='" + _login +
+                "' AND password ='" + _password + "' LIMIT 1;";
         SQLiteStatement sqlSt = db.compileStatement(query);
 
-        if (sqlSt.simpleQueryForLong() > 0) {
+        try {
+            long userId =  sqlSt.simpleQueryForLong();
+
             Intent intent = new Intent(this, ActivityMain.class);
             intent.putExtra("login", _login);
+            intent.putExtra("userId", userId);
             startActivity(intent);
-        } else
+
+        } catch (SQLiteDoneException e) {
             Toast.makeText(this, "Wrong Login or Password.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

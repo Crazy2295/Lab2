@@ -1,38 +1,180 @@
 package com.example.crazy.lab2.adapters;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDoneException;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.crazy.lab2.R;
 import com.example.crazy.lab2.interfaces.CityClickResponse;
+import com.example.crazy.lab2.utils.DBHelper;
 
 import java.util.List;
 
 public class AdapterChooseCity extends RecyclerView.Adapter<AdapterChooseCity.MyViewHolder> {
+    private int fragType = 0;
+
     private List<String> mDataset;
-    public static CityClickResponse delegate = null;
+    private CityClickResponse delegate = null;
+    private Context context = null;
+    private long userId = -1;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView mTextView;
+        DBHelper dbHelper;
 
-        public MyViewHolder(View v) {
+        MyViewHolder(View v) {
             super(v);
             mTextView = v.findViewById(R.id.choose_city_text_view);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    delegate.itemResponse(getAdapterPosition());
+                    delegate.itemResponse(mDataset.get(getAdapterPosition()));
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (fragType == 0)
+                        CreateAlertForChooseCity(getAdapterPosition());
+                    else
+                        CreateAlertForSavedCity(getAdapterPosition());
+                    return true;
                 }
             });
         }
+
+
+        void CreateAlertForChooseCity(final int number) {
+            dbHelper = new DBHelper(context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+            builder.setCancelable(true)
+                    .setIcon(R.drawable.luna_logo)
+                    .setMessage("Сохранить город " + mDataset.get(getAdapterPosition()) + "?")
+                    .setTitle("Fuck u")
+                    .setNegativeButton("НЕТ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.i("NoBtn", "No, fuck u, leatherman");
+                        }
+                    })
+                    .setPositiveButton("ДА", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.i("YesBtn", "Yes! Fuck me");
+
+                            SQLiteDatabase db = dbHelper.getReadableDatabase();
+                            String query = "SELECT id FROM cities WHERE name ='" +
+                                    mDataset.get(getAdapterPosition()) + "' LIMIT 1;";
+                            SQLiteStatement sqlSt = db.compileStatement(query);
+
+                            long cityId = -1;
+
+                            try {
+                                cityId = sqlSt.simpleQueryForLong();
+                            } catch (SQLiteDoneException e) {
+                                Toast.makeText(context, "Can't find city`s id", Toast.LENGTH_SHORT).show();
+                            } catch (SQLException e) {
+                                Toast.makeText(context, "Script wrong", Toast.LENGTH_SHORT).show();
+                            }
+
+                            query = "SELECT id FROM saved_cities WHERE user_id =" +
+                                    userId + " AND city_id =" + cityId + " LIMIT 1;";
+                            sqlSt = db.compileStatement(query);
+                            try{
+                                sqlSt.simpleQueryForLong();
+                                Toast.makeText(context, "Duplicate row!", Toast.LENGTH_SHORT).show();
+                            } catch (SQLiteDoneException e) {
+
+                                db = dbHelper.getWritableDatabase();
+                                query = "INSERT INTO saved_cities (user_id, city_id) VALUES (" +
+                                        userId + ", " + cityId + ");";
+                                sqlSt = db.compileStatement(query);
+                                sqlSt.executeInsert();
+                            }
+                        }
+                    })
+                    .setNeutralButton("Я ДАУН", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.i("Ты", "эээээээээээээээээээээээээээээээээээээээээээ");
+                        }
+                    });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
+
+        void CreateAlertForSavedCity(final int number) {
+            dbHelper = new DBHelper(context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+            builder.setCancelable(true)
+                    .setIcon(R.drawable.luna_logo)
+                    .setMessage("Удалить город " + mDataset.get(getAdapterPosition()) + "?")
+                    .setTitle("Fuck u")
+                    .setNegativeButton("НЕТ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.i("NoBtn", "No, fuck u, leatherman");
+                        }
+                    })
+                    .setPositiveButton("ДА", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.i("YesBtn", "Yes! Fuck me");
+
+                            SQLiteDatabase db = dbHelper.getReadableDatabase();
+                            String query = "SELECT id FROM cities WHERE name ='" +
+                                    mDataset.get(getAdapterPosition()) + "' LIMIT 1;";
+                            SQLiteStatement sqlSt = db.compileStatement(query);
+
+                            long cityId = -1;
+
+                            try {
+                                cityId = sqlSt.simpleQueryForLong();
+                            } catch (SQLiteDoneException e) {
+                                Toast.makeText(context, "Can't find city`s id", Toast.LENGTH_SHORT).show();
+                            } catch (SQLException e) {
+                                Toast.makeText(context, "Script wrong", Toast.LENGTH_SHORT).show();
+                            }
+
+                            db.delete("saved_cities", "user_id = ? AND city_id = ?",
+                                    new String[] {String.valueOf(userId), String.valueOf(cityId)});
+                        }
+                    })
+                    .setNeutralButton("Я ДАУН", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Log.i("Ты", "эээээээээээээээээээээээээээээээээээээээээээ");
+                        }
+                    });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
     }
 
-    public AdapterChooseCity(List<String> myDataset) {
+    public AdapterChooseCity(List<String> myDataset, CityClickResponse _delegate,
+                             Context _context, long _userId, int _fragType) {
         mDataset = myDataset;
+        delegate = _delegate;
+        context = _context;
+        userId = _userId;
+        fragType = _fragType; // 0 - for FragmentChooseCity; 1 - for FragmentSavedCity
     }
 
     @Override

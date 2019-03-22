@@ -73,7 +73,6 @@ public class AsyncTaskDownloadJSON extends AsyncTask<String, Integer, List<Wheth
     }
 
     protected void onPostExecute(List<WhetherJSON> output) {
-        Log.i("AsyncTaskDownloadJSON", "Output string = " + output);
         delegate.processFinish(output);
     }
 }

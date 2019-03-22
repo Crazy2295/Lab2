@@ -21,7 +21,7 @@ import com.example.crazy.lab2.utils.DBHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentChooseCity extends Fragment implements CityClickResponse {
+public class FragmentChooseCity extends Fragment {
     DBHelper dbHelper;
 
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -50,8 +50,8 @@ public class FragmentChooseCity extends Fragment implements CityClickResponse {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new AdapterChooseCity(recyclerData);
-        ((AdapterChooseCity) mAdapter).delegate = this;
+        mAdapter = new AdapterChooseCity(recyclerData, (ActivityMain)getActivity(),
+                (ActivityMain)getActivity(), ((ActivityMain)getActivity()).userId, 0);
         mRecyclerView.setAdapter(mAdapter);
 
         swipeRefreshLayout.setRefreshing(true);
@@ -64,7 +64,7 @@ public class FragmentChooseCity extends Fragment implements CityClickResponse {
         List<String> outputList = new ArrayList<>();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.query("Cities", new String[] {"name"}, null,
+        Cursor cursor = db.query("cities", new String[] {"name"}, null,
                 null, null, null, "name");
 
         cursor.moveToFirst();
@@ -79,10 +79,5 @@ public class FragmentChooseCity extends Fragment implements CityClickResponse {
         mAdapter.notifyDataSetChanged();
 
         swipeRefreshLayout.setRefreshing(false);
-    }
-
-    @Override
-    public void itemResponse(int number) {
-        ((ActivityMain)getActivity()).clickToCity(recyclerData.get(number));
     }
 }

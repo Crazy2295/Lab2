@@ -9,19 +9,19 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.crazy.lab2.fragments.FragmentChooseCity;
-import com.example.crazy.lab2.fragments.FragmentForTesting;
 import com.example.crazy.lab2.fragments.FragmentSavedCity;
 import com.example.crazy.lab2.fragments.FragmentWhether;
 import com.example.crazy.lab2.fragments.FragmentAboutAuthor;
 import com.example.crazy.lab2.R;
+import com.example.crazy.lab2.interfaces.CityClickResponse;
 
-public class ActivityMain extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity implements CityClickResponse {
+    public long userId;
+
     FragmentChooseCity fragChooseCity = new FragmentChooseCity();
     FragmentSavedCity fragSavedCity = new FragmentSavedCity();
     FragmentWhether fragWhether = new FragmentWhether();
     FragmentAboutAuthor fragAboutAuthor = new FragmentAboutAuthor();
-    FragmentForTesting fragmentForTesting = new FragmentForTesting();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,11 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null)
-            clickToCity("Таганрог");
+            itemResponse("Таганрог");
 
         Intent intent = getIntent();
         String login = intent.getStringExtra("login");
+        userId = intent.getLongExtra("userId", -1);
         getSupportActionBar().setTitle(login);
 
         final DrawerLayout mDrawerLayout = findViewById(R.id.my_drawer_layout);
@@ -56,9 +57,6 @@ public class ActivityMain extends AppCompatActivity {
                             case R.id.about_author:
                                 _fragmentTransaction.replace(R.id.fragment_place, fragAboutAuthor);
                                 break;
-                            case R.id.for_testing:
-                                _fragmentTransaction.replace(R.id.fragment_place, fragmentForTesting);
-                                break;
                         }
                         _fragmentTransaction.addToBackStack(null);
                         _fragmentTransaction.commit();
@@ -71,7 +69,8 @@ public class ActivityMain extends AppCompatActivity {
                 });
     }
 
-    public void clickToCity(String city) {
+    @Override
+    public void itemResponse(String city) {
         Bundle bundle = new Bundle();
         bundle.putString("city", city);
         fragWhether.setArguments(bundle);
