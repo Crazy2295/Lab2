@@ -2,11 +2,17 @@
 
 Pre-lab code is usually found in the files labeled ForTesting in the name.
 
-## Pre-lab7 code uploaded
+## Pre-lab8 code uploaded
 
+* /activities/ActivityLogin
+* /activities/ActivityMain
+* /adapters/AdapterChooseCity
+* /fragments/FragmentChooseCity
+* /fragments/FragmentSavedCity
+* /fragments/FragmentWhether
+* /interfaces/CityClickResponse
 * /utils/DBHelper
-* /fragments/FragmentChooseCity - insert to DB in func processFinish()
-* /fragments/FragmentForTesting - take data from DB and show
+* /layout/fragment_saved_city
 
 # Plugins
 
