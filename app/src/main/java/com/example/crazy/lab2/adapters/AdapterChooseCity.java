@@ -63,19 +63,17 @@ public class AdapterChooseCity extends RecyclerView.Adapter<AdapterChooseCity.My
 
             builder.setCancelable(true)
                     .setIcon(R.drawable.luna_logo)
-                    .setMessage("Сохранить город " + mDataset.get(getAdapterPosition()) + "?")
-                    .setTitle("Fuck u")
-                    .setNegativeButton("НЕТ", new DialogInterface.OnClickListener() {
+                    .setMessage("Город: " + mDataset.get(getAdapterPosition()))
+                    .setTitle("Выберите")
+                    .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Log.i("NoBtn", "No, fuck u, leatherman");
+
                         }
                     })
-                    .setPositiveButton("ДА", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Сохранить", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Log.i("YesBtn", "Yes! Fuck me");
-
                             SQLiteDatabase db = dbHelper.getReadableDatabase();
                             String query = "SELECT id FROM cities WHERE name ='" +
                                     mDataset.get(getAdapterPosition()) + "' LIMIT 1;";
@@ -107,10 +105,10 @@ public class AdapterChooseCity extends RecyclerView.Adapter<AdapterChooseCity.My
                             }
                         }
                     })
-                    .setNeutralButton("Я ДАУН", new DialogInterface.OnClickListener() {
+                    .setNeutralButton("Погода", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Log.i("Ты", "эээээээээээээээээээээээээээээээээээээээээээ");
+                            delegate.itemResponse(mDataset.get(getAdapterPosition()));
                         }
                     });
 
@@ -124,18 +122,16 @@ public class AdapterChooseCity extends RecyclerView.Adapter<AdapterChooseCity.My
 
             builder.setCancelable(true)
                     .setIcon(R.drawable.luna_logo)
-                    .setMessage("Удалить город " + mDataset.get(getAdapterPosition()) + "?")
-                    .setTitle("Fuck u")
-                    .setNegativeButton("НЕТ", new DialogInterface.OnClickListener() {
+                    .setMessage("Город: " + mDataset.get(getAdapterPosition()) + "?")
+                    .setTitle("Выберите")
+                    .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Log.i("NoBtn", "No, fuck u, leatherman");
                         }
                     })
-                    .setPositiveButton("ДА", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Log.i("YesBtn", "Yes! Fuck me");
 
                             SQLiteDatabase db = dbHelper.getReadableDatabase();
                             String query = "SELECT id FROM cities WHERE name ='" +
@@ -156,10 +152,10 @@ public class AdapterChooseCity extends RecyclerView.Adapter<AdapterChooseCity.My
                                     new String[] {String.valueOf(userId), String.valueOf(cityId)});
                         }
                     })
-                    .setNeutralButton("Я ДАУН", new DialogInterface.OnClickListener() {
+                    .setNeutralButton("Погода", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Log.i("Ты", "эээээээээээээээээээээээээээээээээээээээээээ");
+                            delegate.itemResponse(mDataset.get(getAdapterPosition()));
                         }
                     });
 
