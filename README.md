@@ -1,18 +1,6 @@
 # Lab2
 
-Pre-lab code is usually found in the files labeled ForTesting in the name.
-
-## Pre-lab8 code uploaded
-
-* /activities/ActivityLogin
-* /activities/ActivityMain
-* /adapters/AdapterChooseCity
-* /fragments/FragmentChooseCity
-* /fragments/FragmentSavedCity
-* /fragments/FragmentWhether
-* /interfaces/CityClickResponse
-* /utils/DBHelper
-* /layout/fragment_saved_city
+All labs completed!
 
 # Plugins
 
